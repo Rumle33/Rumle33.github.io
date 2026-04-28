@@ -391,7 +391,12 @@
     <p class="intro-text">
       For a few years, the numbers moved in the right direction: fatalities fell from their 2013
       peak through the late 2010s, reaching a then-record low of 202 deaths in 2018, down roughly
-      32% from the 2013 baseline. Then 2020 arrived and scrambled everything.
+      32% from the 2013 baseline (see pre/post analysis in the Explainer Notebook, §3e). This
+      is a raw before-and-after trend; confounders such as Uber/Lyft growth and automatic
+      emergency braking adoption in newer vehicles make strict causal attribution to Vision Zero
+      alone impossible without a comparison city. What the data clearly shows is that the
+      decline coincides with the programme's active implementation years. Then 2020 arrived
+      and scrambled everything.
     </p>
     <figure class="viz-card">
       <img src="images/yearly_trends.png"
@@ -556,12 +561,14 @@
       </figcaption>
     </figure>
     <p class="intro-text" style="margin-top:1.5rem;">
-      The late-night pattern also has a severity dimension that the count-based heatmap cannot
-      show. Crashes between midnight and 4 AM are disproportionately fatal: pedestrian traffic
-      is lower (fewer witnesses, fewer potential rescuers), emergency response times are longer
-      in less-dense areas, and impaired drivers are far more likely to be travelling at speed.
-      A late-night crash in Staten Island or eastern Queens is a qualitatively different event
-      from an afternoon fender-bender in the Midtown grid.
+      The late-night pattern also has a severe severity dimension that the count-based heatmap
+      cannot show. Per-crash fatality rate analysis (Notebook §3f) shows that late-night
+      Friday and Saturday crashes (10 PM–2 AM) are roughly <strong>3–4× more lethal per
+      collision</strong> than weekday morning rush-hour crashes, despite occurring far less
+      frequently. Pedestrian traffic is lower (fewer witnesses, fewer rescuers), emergency
+      response times are longer in less-dense areas, and impaired drivers are far more likely
+      to be travelling at speed. A late-night crash in Staten Island or eastern Queens is a
+      qualitatively different event from an afternoon fender-bender in the Midtown grid.
     </p>
     <p class="intro-text">
       Timing tells us <em>when</em> to be most vigilant. But it does not tell us <em>why</em> those
@@ -591,6 +598,12 @@
       consistent with decades of research on the cognitive cost of smartphone use at the wheel
       (Strayer &amp; Johnston, 2001). A driver glancing at a navigation app for two seconds
       at 30 mph travels 88 feet, nearly the length of a full city bus, effectively blind.
+      But raw counts tell only part of the story. The chart's <strong>Fatality Rate (%)
+      dropdown</strong> reveals a different ranking: which factors are most lethal per crash,
+      not merely most common. Factors associated with high-speed intersection conflicts
+      &#8212; failure to yield, unsafe speed &#8212; rise sharply in that view, because
+      each occurrence is far more likely to end in a death than a distraction-related
+      rear-end tap.
     </p>
     <p class="intro-text">
       One critical caveat: "Unspecified" (excluded from this chart) was recorded as a factor
@@ -624,6 +637,9 @@
         Use the <strong>Display dropdown</strong> to switch between raw count and percentage share;
         the % view allows fair comparison across tiers despite the huge scale difference.
         Notice how "Failure to Yield Right-of-Way" climbs dramatically in the Fatal Crashes view.
+        Switch to <strong>Fatality Rate (%)</strong> to see which factors are most lethal
+        <em>per crash</em> rather than merely most common &#8212; this view ranks factors by
+        the percentage of crashes containing that factor that resulted in at least one death.
       </figcaption>
     </figure>
     <div class="pull-quote">
@@ -755,10 +771,10 @@
       <div class="conclusion-box">
         <h3>&#x2714; What the Data Shows</h3>
         <ul style="padding-left:1.2rem; font-size:.93rem; color:var(--text-muted);">
-          <li>Vision Zero reduced per-year fatalities by ~20% through 2018</li>
+          <li>Vision Zero coincided with a ~32% reduction in annual fatalities from 2013 to 2018 (raw trend; confounders uncontrolled)</li>
           <li>COVID caused a crash-count collapse but not a proportional drop in fatalities</li>
           <li>Fatal crashes cluster on high-speed outer-borough arterials, not the densest streets</li>
-          <li>Driver inattention is the top recorded factor; "failure to yield" dominates fatal crashes</li>
+          <li>Driver inattention is the top factor by count; per-crash fatality rate analysis shows "failure to yield" and "unsafe speed" are the most lethal factors per occurrence</li>
           <li>Brooklyn leads in both raw fatality counts <em>and</em> fatalities per 100k residents (25.3); controlling for population does not flip the ranking</li>
           <li>Manhattan's per-resident crash rate is highest, a denominator artifact, since ~1.7M residents share streets with far more daytime visitors</li>
         </ul>
