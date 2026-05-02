@@ -53,7 +53,7 @@
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
     }
-    .iframe-wrap iframe { min-width: 600px; }
+    .iframe-wrap iframe { min-width: min(600px, 100vw); }
 
     /* ── Loading skeleton while iframes load ─────────────────────────────── */
     .iframe-wrap { position: relative; }
@@ -194,6 +194,16 @@
       border: none;
       display: block;
     }
+    .figure-title {
+      padding: .75rem 1.4rem .6rem;
+      margin: 0;
+      font-family: var(--font-ui);
+      font-size: .95rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      border-bottom: 1px solid #f0f0f0;
+      background: var(--card-bg);
+    }
     figcaption {
       padding: 1rem 1.4rem 1.2rem;
       font-family: var(--font-ui);
@@ -273,7 +283,16 @@
       font-family: var(--font-ui);
       font-size: .9rem;
     }
-    .notebook-link:hover { background: #238c82; }
+    /* ── Hero datasource line ───────────────────────────────────────────── */
+    .hero-datasource {
+      font-family: var(--font-ui);
+      font-size: .78rem;
+      opacity: .68;
+      margin-top: -.8rem;
+      margin-bottom: 1.5rem;
+    }
+    .hero-datasource a { color: #a8dadc; text-decoration: none; }
+    .hero-datasource a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
@@ -296,6 +315,9 @@
   <p class="hero-sub">
     In 2014, NYC launched Vision Zero, a bold plan to eliminate traffic deaths. While total crashes have since declined, fatalities have not, revealing a grim paradox: our streets are seeing fewer collisions, but the ones that happen are becoming more severe. This project investigates why.
   </p>
+  <p class="hero-datasource">
+    Source: <a href="https://data.cityofnewyork.us/Public-Safety/Motor-Vehicle-Collisions-Crashes/h9gi-nx95" target="_blank" rel="noopener noreferrer">NYC Open Data — Motor Vehicle Collisions – Crashes</a> &nbsp;·&nbsp; 1.47 M records, 2013–2025, downloaded April 2026
+  </p>
   <div class="hero-stats">
     <div class="stat-box">
       <span class="stat-num">2.1M+</span>
@@ -306,8 +328,8 @@
       <span class="stat-label">People killed<br>2013–2025</span>
     </div>
     <div class="stat-box">
-      <span class="stat-num">↑ rising</span>
-      <span class="stat-label">Fatalities per 1,000 crashes<br>since the 2018 low</span>
+      <span class="stat-num">+145%</span>
+      <span class="stat-label">Fatality rate per crash<br>above the 2018 low</span>
     </div>
     <div class="stat-box">
       <span class="stat-num">55%</span>
@@ -323,7 +345,7 @@
     <h2>One Dataset, a Decade of Streets</h2>
     <p class="intro-text">
       Every time a police officer files a crash report in New York City, it flows into a public database
-      on the NYC Open Data portal. This analysis draws on that record: <strong>over 1.47 million collisions
+      on the <a href="https://data.cityofnewyork.us/Public-Safety/Motor-Vehicle-Collisions-Crashes/h9gi-nx95" target="_blank" rel="noopener noreferrer">NYC Open Data portal</a>.This analysis draws on that record: <strong>over 1.47 million collisions
       across the five boroughs from 2013 through 2025</strong>, each one tagged with the date, the time,
       the location, who was hurt, and up to five reasons why it happened.
     </p>
@@ -357,6 +379,22 @@
       <div class="finding green">
         <span class="finding-num">~3% no GPS</span>
         <p>Only 3% of borough-filtered records lack valid coordinates, far better than the raw dataset's missing-location rate.</p>
+      </div>
+    </div>
+
+    <p class="section-label" style="margin-top:2.5rem;">Who Dies on NYC Streets</p>
+    <div class="findings">
+      <div class="finding red">
+        <span class="finding-num">55% <small style="font-size:1rem; font-weight:400">pedestrians</small></span>
+        <p>1,123 pedestrians killed — more than half of all fatalities, despite never being inside a vehicle.</p>
+      </div>
+      <div class="finding">
+        <span class="finding-num">33% <small style="font-size:1rem; font-weight:400">motorists</small></span>
+        <p>661 vehicle occupants killed. Protected by metal and airbags, yet still one-third of the death toll.</p>
+      </div>
+      <div class="finding green">
+        <span class="finding-num">10% <small style="font-size:1rem; font-weight:400">cyclists</small></span>
+        <p>200 cyclists killed — a growing group as Citi Bike ridership has more than tripled since 2013.</p>
       </div>
     </div>
     <p class="intro-text" style="margin-top:1.5rem;">
@@ -471,10 +509,12 @@
     <p class="intro-text">
       Queens Boulevard, once nicknamed the "Boulevard of Death," exemplifies the pattern.
       A twelve-lane expressway-width road that pedestrians must navigate in multiple crossing
-      phases, it was a persistent hotspot for decades before sustained infrastructure investment
-      (medians, extended signal timing, turn restrictions) began to reduce its toll in the 2010s.
-      It is now frequently cited as a Vision Zero success story, but the map reveals that
-      adjacent arterials absorbed some of that displaced risk.
+      phases, it recorded at least 18 pedestrian deaths in a single year at its worst — earning
+      its grim nickname in local and national press coverage throughout the 1990s
+      (<a href="https://en.wikipedia.org/wiki/Queens_Boulevard" target="_blank" rel="noopener noreferrer">Wikipedia — Queens Boulevard</a>).
+      Sustained infrastructure investment (medians, extended signal timing, turn restrictions)
+      began to reduce its toll in the 2010s, and it is now frequently cited as a Vision Zero
+      success story — but the map reveals that adjacent arterials absorbed some of that displaced risk.
     </p>
     <p class="intro-text">
       Atlantic Avenue in Brooklyn tells a similar story: it functions as a de facto highway
@@ -484,19 +524,25 @@
       not the pedestrians and cyclists who also use them.
     </p>
     <figure class="viz-card">
+      <p class="figure-title">NYC Traffic Crash Locations by Severity — Interactive Map (2013–2025)</p>
       <div class="iframe-wrap">
         <iframe src="visualizations/severity_heatmap.html" height="560"
                 title="Interactive heatmap of NYC crash locations by severity"></iframe>
       </div>
       <figcaption>
-        <strong>Fig 2.</strong> Interactive heatmap of crash locations (all 12 years aggregated, 2013–2025).
-        <strong style="color:#1d3557">Blue layer</strong>: all crashes (20,000 sampled points).
-        <strong style="color:#f4a261">Orange layer</strong>: injury crashes.
-        <strong style="color:#e63946">Red layer</strong>: fatal crashes (all ~2,000 records, no sampling).
-        Use the layer control (top-right) to toggle between layers. Fatal crashes concentrate along
-        high-speed arterials (Atlantic Ave, Queens Blvd, Flatbush Ave) rather than the dense Midtown
-        core, where speeds are lower and pedestrian crossings are more frequent.
-        <em>Note: the map shows 12 years combined; year-by-year patterns are explored in Figure 3.</em>
+        <strong>Fig 2. Geographic Distribution of NYC Traffic Crashes by Severity (2013–2025).</strong>
+        This interactive map plots every recorded collision in the NYC Motor Vehicle Collisions dataset
+        across all five boroughs, colour-coded by outcome severity.
+        <strong style="color:#1d3557">Blue dots</strong> represent a random sample of 20,000 crashes (all severities).
+        <strong style="color:#f4a261">Orange dots</strong> mark injury-involved crashes.
+        <strong style="color:#e63946">Red dots</strong> show all ~2,000 fatal crashes — plotted in full, with no sampling.
+        Use the <strong>layer toggle (top-right corner)</strong> to isolate each severity level.
+        <br>
+        <em>Key insight:</em> Fatal crashes are <em>not</em> concentrated in dense Midtown Manhattan —
+        they cluster along high-speed arterials such as Atlantic Avenue, Queens Boulevard, and
+        Flatbush Avenue, where vehicle speeds are higher and pedestrian infrastructure is thinner.
+        This spatial pattern directly motivates Vision Zero's targeted street redesign programme.
+        <em>All 12 years are shown combined; temporal patterns are explored in Figure 3.</em>
       </figcaption>
     </figure>
     <div class="pull-quote">
@@ -544,26 +590,29 @@
       longer driving distances required to access nightlife in other boroughs.
     </p>
     <figure class="viz-card">
+      <p class="figure-title">Crash Volume by Hour &amp; Day of Week — Interactive Heatmap (2013–2025)</p>
       <div class="iframe-wrap">
         <iframe src="visualizations/time_heatmap.html" height="550"
                 title="Interactive heatmap of crashes by hour and day of week"></iframe>
       </div>
       <figcaption>
         <strong>Fig 3.</strong> Crash counts by hour of day (x-axis) and day of week (y-axis),
-        animated across 13 years (2013–2025). Darker red = more crashes. The colour scale is
-        <em>fixed</em> across all years so brightness is directly comparable.
+        animated across 13 years (2013–2025). Darker red = more crashes.
+        <strong>The colour scale is fixed across all years and severity levels</strong>, so
+        brightness is directly comparable across years — a lighter 2020 heatmap means
+        genuinely fewer crashes, not a rescaled axis.
         Use the <strong>year slider</strong> or ▶ Play button to watch patterns shift around
         Vision Zero (2014) and COVID (2020). Use the <strong>Severity dropdown</strong> to switch
         between All Crashes, Injury Crashes, and Fatal Crashes.
         Note: counts are absolute; the heatmap does not control for traffic volume or weather.
         The late-night Friday/Saturday cluster is disproportionately fatal, with alcohol-impaired
-        driving rises sharply after midnight (NHTSA, 2023).
+        driving rising sharply after midnight (NHTSA, 2023).
       </figcaption>
     </figure>
     <p class="intro-text" style="margin-top:1.5rem;">
       The late-night pattern also has a severe severity dimension that the count-based heatmap
       cannot show. Per-crash fatality rate analysis (Notebook §3f) shows that late-night
-      Friday and Saturday crashes (10 PM–2 AM) are roughly <strong>3–4× more lethal per
+      Friday and Saturday crashes (10 PM–2 AM) are <strong>2× more lethal per
       collision</strong> than weekday morning rush-hour crashes, despite occurring far less
       frequently. Pedestrian traffic is lower (fewer witnesses, fewer rescuers), emergency
       response times are longer in less-dense areas, and impaired drivers are far more likely
@@ -607,8 +656,10 @@
     </p>
     <p class="intro-text">
       One critical caveat: "Unspecified" (excluded from this chart) was recorded as a factor
-      in the majority of crash records. What you see below represents only the crashes where
-      an officer made an explicit judgment call. Interpret accordingly. The scale of
+      in the majority of crash records. Across fatal crashes specifically, <strong>34% of records
+      have all five factor fields marked Unspecified</strong> — meaning the true cause in more
+      than 1 in 3 fatal crashes is entirely unknown. What you see below represents only the
+      crashes where an officer made an explicit judgment call. Interpret accordingly. The scale of
       "Unspecified" is itself informative: it suggests that attributing crash causation on
       the spot, often under pressure and without witness accounts, is genuinely difficult.
       Many of the crashes labelled "Unspecified" may actually belong to the visible categories
@@ -626,6 +677,7 @@
       crossing on a green light has no defence against a driver who fails to yield.
     </p>
     <figure class="viz-card">
+      <p class="figure-title">Top Contributing Factors by Severity — Interactive Bar Chart</p>
       <div class="iframe-wrap">
         <iframe src="visualizations/factors_chart.html" height="630"
                 title="Interactive horizontal bar chart of contributing factors"></iframe>
@@ -698,6 +750,7 @@
       probability of involving a pedestrian than in a car-centric borough.
     </p>
     <figure class="viz-card">
+      <p class="figure-title">Borough Crash &amp; Fatality Metrics — Interactive Choropleth (2013–2025)</p>
       <div class="iframe-wrap">
         <iframe src="visualizations/borough_chart.html" height="600"
                 title="Interactive choropleth map comparing boroughs on six crash metrics"></iframe>
@@ -842,6 +895,8 @@
           <a href="https://doi.org/10.1016/j.aap.2012.07.022" target="_blank" rel="noopener noreferrer">doi:10.1016/j.aap.2012.07.022</a></li>
       <li>World Health Organization. (2023). <em>Global Status Report on Road Safety 2023</em>. WHO. Retrieved from
           <a href="https://www.who.int/publications/i/item/9789240086517" target="_blank" rel="noopener noreferrer">who.int</a></li>
+      <li>Wikipedia. Queens Boulevard. Retrieved from
+          <a href="https://en.wikipedia.org/wiki/Queens_Boulevard" target="_blank" rel="noopener noreferrer">en.wikipedia.org/wiki/Queens_Boulevard</a></li>
     </ol>
   </div>
 </footer>
